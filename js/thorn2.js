@@ -34,8 +34,7 @@ function createFoe() {
     "Blurb",
     "Snortiborp",
     "Barfalot",
-    "Sproknaar",
-    "Phisen"
+    "Sproknaar"
   ];
   const foeName = foeNames[getRandomInt(0, foeNames.length - 1)];
   const player = createPlayer(foeName);
