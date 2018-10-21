@@ -5,7 +5,7 @@ var config =
     height: 600,
     parent: "graphics",
     pixelArt: true,
-    physics: {
+    physics: {  
       default: 'arcade',
       arcade: {
           gravity: { y: 300 },
@@ -38,6 +38,7 @@ function preload()
     this.load.image('bkg09', 'assets/backgrounds/forest09.png');
     this.load.image('bkg10', 'assets/backgrounds/forest10.png');
 
+    this.load.image('ground', 'assets/ground.png');
     this.load.spritesheet('adventurer', 'assets/adventurer.png', { frameWidth: 50, frameHeight: 37 });
   }
 
@@ -54,8 +55,10 @@ function create()
     this.add.image(400, 204, 'bkg08');
     this.add.image(400, 204, 'bkg09');
 
+    ground = this.physics.add.staticGroup();
+    ground.create(500, 575, 'ground');
 
-    player = this.physics.add.sprite(100, 300, "adventurer").setScale(2);
+    player = this.physics.add.sprite(100, 300, "adventurer").setScale(4);
     player.setCollideWorldBounds(true);  
     
     this.add.image(400, 204, 'bkg10');
@@ -84,6 +87,9 @@ function create()
 
 function update()
   {
+
+    this.physics.add.collider(player, ground);
+
     if (cursors.space.isDown) {
       player.anims.play("attack1", true);
     } else if (cursors.right.isDown) {
