@@ -58,7 +58,7 @@ function create()
     ground = this.physics.add.staticGroup();
     ground.create(500, 575, 'ground');
 
-    player = this.physics.add.sprite(100, 300, "adventurer").setScale(4);
+    player = this.physics.add.sprite(100, 300, "adventurer").setScale(2);
     player.setCollideWorldBounds(true);  
     
     this.add.image(400, 204, 'bkg10');
