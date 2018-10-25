@@ -34,6 +34,7 @@ progress {
 
 progress * {
   transition-duration: 1s;
+  transition: all;
 }
 
 ::-webkit-progress-bar {

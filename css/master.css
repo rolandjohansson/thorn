@@ -36,6 +36,9 @@ progress * {
   -webkit-transition-duration: 1s;
   -o-transition-duration: 1s;
   transition-duration: 1s;
+  -webkit-transition: all;
+  -o-transition: all;
+  transition: all;
 }
 
 ::-webkit-progress-bar {
