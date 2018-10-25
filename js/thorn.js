@@ -12,6 +12,7 @@ const gHealthBars = document.querySelectorAll(".healthbar");
 const gPlayerNameOutput = document.querySelector("#player-one-name");
 const gFoeNameOutput = document.querySelector("#player-two-name");
 const gRollButton = document.querySelector("#roll");
+const gPlayerNameModal = document.querySelector('playerNameModal');
 
 const gPlayerDefaultName = "Brave";
 let gPlayer = createPlayer(gPlayerDefaultName);
@@ -78,6 +79,13 @@ function fightRollOutput(attackerName, defenderName, result) {
   writeToConsole("Hit! " + defenderName + " took <span class='text-danger'>" + result.actualDamage + "</span> damage");
 
   // + attackerName +" rolled " + result.attackerDiceSum + " (" + result.attackerDie1 + " + " + result.attackerDie2  + "). " + defenderName + " rolled " + result.defenderDie1 + ". Damage: " + result.actualDamage + " (" + result.attackerDiceSum + " - " + result.defenderDie1)
+}
+
+/* ==== Modal ==== */
+
+// TODO: Fix!
+span.onclick = function() {
+    gMmodal.style.display = "none";
 }
 
 /* ================= GAME ENGINE ================= */
