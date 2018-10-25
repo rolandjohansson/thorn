@@ -32,6 +32,10 @@ progress {
   margin: .5em 0;
 }
 
+progress * {
+  transition-duration: 1s;
+}
+
 ::-webkit-progress-bar {
   background-color: darkred;
   border-radius: 2px;
