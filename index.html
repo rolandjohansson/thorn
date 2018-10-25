@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,27 +15,42 @@
   <meta name="msapplication-TileColor" content="#ebb11d">
   <meta name="msapplication-config" content="/thorn/favicon/browserconfig.xml">
   <meta name="theme-color" content="#ebb11d">
-  <script src="js/phaser.min.js"></script>
-  <script src="js/thorn2.js" defer></script>
+  <script src="js/thorn.js" defer></script>
   <link rel="stylesheet" href="css/master.css">
 </head>
+
 <body>
-  <script src="js/thorn.js"></script>
   <div class="grid-container">
-      <div class="grid-area box-shadow" id="graphics">
-        <!-- <div class="logo-container">
-            <img src="assets/ui/thorn.png" id="thorn-logo" alt="The Thorn Logotype">
-        </div> -->
+    <div class="grid-area box-shadow" id="graphics">
+      <div class="logo-container">
+        <img src="assets/ui/thorn.png" id="thorn-logo" alt="The Thorn Logotype">
       </div>
-      <div class="grid-area box-shadow" id="console"></div>
-      <div class="grid-area" id="buttons">
-        <button id="roll" class="btn btn-success">Attack</button>
-      </div>  
-      <div class="grid-area" id="footer">
-        <span class="info">
-          Copyright &copy; 2018 <a href="http://rolandjohansson.se" target="_blank">Roland Johansson</a>
-        </span>
+      <div class="game">
+
       </div>
+      <div id="healthbar-container">
+        <div id="healthbar-one">
+          <label id="healthbar-one-output" for="healthbar-one-progress"></label>
+          <progress class="healthbar" id="healthbar-one-progress" value="0" max="100"></progress>
+          <span id="player-one-name"></span>
+        </div>
+        <div id="healthbar-two">
+          <label id="healthbar-two-output" for="healthbar-two-progress"></label>
+          <progress class="healthbar" id="healthbar-two-progress" value="0" max="100"></progress>
+          <span id="player-two-name"></span>
+        </div>
+      </div>
+    </div>
+    <div class="grid-area box-shadow" id="console"></div>
+    <div class="grid-area" id="buttons">
+      <button id="roll" class="btn btn-success">Attack</button>
+    </div>
+    <div class="grid-area" id="footer">
+      <span class="info">
+        Copyright &copy; 2018 <a href="http://rolandjohansson.se" target="_blank">Roland Johansson</a>
+      </span>
+    </div>
   </div>
 </body>
+
 </html>

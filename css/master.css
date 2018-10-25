@@ -25,6 +25,27 @@ a {
   color: inherit;
 }
 
+progress {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: .5em 0;
+}
+
+::-webkit-progress-bar {
+  background-color: darkred;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}
+
+::-webkit-progress-value {
+  -webkit-transition-duration: 1s;
+  transition-duration: 1s;
+  border-radius: 2px;
+  background-color: red;
+}
+
 .btn {
   background-color: #ebb11d;
   color: #fff;
@@ -87,6 +108,14 @@ a {
 #graphics {
   grid-area: graphics;
   background-color: #000;
+  overflow: hidden;
+  display: grid;
+  grid-template-areas: "logo" "game" "healthbars";
+  grid-template-rows: 1fr 8fr 1fr;
+}
+
+.logo-container {
+  grid-area: logo;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -96,7 +125,61 @@ a {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  overflow: hidden;
+}
+
+#thorn-logo {
+  max-width: 35vh;
+  height: auto;
+  margin: 1em;
+}
+
+.game {
+  grid-area: game;
+}
+
+#healthbar-container {
+  grid-area: healthbars;
+  display: grid;
+  grid-template-columns: auto auto;
+  color: white;
+}
+
+.healthbar {
+  max-width: 35vw;
+}
+
+#healthbar-one {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  padding: 1em;
+}
+
+#healthbar-two {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  align-items: flex-end;
+  padding: 1em;
 }
 
 #console {
@@ -139,28 +222,10 @@ a {
 .grid-container {
   display: grid;
   grid-gap: .5em;
-  grid-template-areas: "graphics" "console" "buttons" "footer";
+  grid-template-areas: "graphics" "console" "buttons" "footer";
   grid-template-rows: 7fr 1fr 1fr 1fr;
   grid-template-rows: 10fr 4fr 2fr 1fr;
   height: 100%;
-}
-
-.logo-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-#thorn-logo {
-  max-width: 35vh;
-  height: auto;
-  margin: 1em;
 }
 
 .info {
@@ -188,7 +253,7 @@ a {
   }
   .grid-container {
     grid-gap: 1em;
-    grid-template-areas: "graphics graphics graphics" "console console buttons" "footer footer footer";
+    grid-template-areas: "graphics graphics graphics" "console console buttons" "footer footer footer";
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 12fr 3fr 1fr;
   }
