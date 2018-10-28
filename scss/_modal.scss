@@ -1,18 +1,18 @@
-/* The Modal (background) */
 .modal {
-    // display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 100; /* Sit on top */
+    // display: none;
+    position: fixed;
+    z-index: 100;
     left: 0;
     top: 0;
     right: 0;
     bottom: 0;
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
 }
 
-/* Modal Content */
 .modal-content {
+    color: white;
+    font-weight: bold;
     background-color: #333;
     background-image: $ui-bkg;
     padding: 20px;
@@ -29,7 +29,6 @@
     }
 }
 
-/* The Close Button */
 .close {
     color: #aaaaaa;
     float: right;
@@ -42,4 +41,12 @@
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+#player-name-input {
+    padding: 1em;
+    width: 100%;
+    outline: none;
+    border: none;
+    border-radius: $default-border-radius;
 }

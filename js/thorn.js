@@ -9,12 +9,17 @@
 
 const gConsoleOutput = document.querySelector("#console");
 const gHealthBars = document.querySelectorAll(".healthbar");
-const gPlayerNameOutput = document.querySelector("#player-one-name");
 const gFoeNameOutput = document.querySelector("#player-two-name");
 const gRollButton = document.querySelector("#roll");
-const gPlayerNameModal = document.querySelector('playerNameModal');
 
-const gPlayerDefaultName = "Brave";
+const gPlayerNameModal = document.querySelector('#player-name-modal');
+const gPlayerNameInput = document.querySelector("#player-name-input");
+const gPlayerNameOutput = document.querySelector("#player-one-name");
+const gPlayerNameForm = document.querySelector("#player-name-form");
+const gPlayerNameSubmit = document.querySelector("#submit-player-name");
+
+let gPlayerDefaultName = "Brave";
+
 let gPlayer = createPlayer(gPlayerDefaultName);
 let gFoe = createFoe();
 
@@ -51,41 +56,6 @@ function createFoe() {
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-/* ================= UI ================= */
-
-function updateHealthBars(p1, p2) {
-  gHealthBars.forEach(healthBar => {
-    healthBar.setAttribute("max", gPlayer.hitPointsMax);
-    healthBar.setAttribute("value", gPlayer.hitPontsNow);
-  });
-}
-
-function updatePlayerNames() {
-  gPlayerNameOutput.innerHTML = gPlayer.name;
-  gFoeNameOutput.innerHTML = gFoe.name;
-}
-
-function writeToConsole(content) {
-  var element = document.createElement("p");
-  var txt = document.createTextNode(content);
-  element.innerHTML = txt.nodeValue;
-  gConsoleOutput.appendChild(element);
-  gConsoleOutput.scrollTop = gConsoleOutput.scrollHeight;
-}
-
-function fightRollOutput(attackerName, defenderName, result) {
-  writeToConsole("Hit! " + defenderName + " took <span class='text-danger'>" + result.actualDamage + "</span> damage");
-
-  // + attackerName +" rolled " + result.attackerDiceSum + " (" + result.attackerDie1 + " + " + result.attackerDie2  + "). " + defenderName + " rolled " + result.defenderDie1 + ". Damage: " + result.actualDamage + " (" + result.attackerDiceSum + " - " + result.defenderDie1)
-}
-
-/* ==== Modal ==== */
-
-// TODO: Fix!
-span.onclick = function() {
-    gMmodal.style.display = "none";
 }
 
 /* ================= GAME ENGINE ================= */
@@ -149,7 +119,45 @@ function turn() {
   foeTurn();
 }
 
-startGame();
+gPlayerNameForm.addEventListener("submit", function(e) {
+  e.preventDefault();
+  gPlayer.name = gPlayerNameInput.value;
+  startGame();
+  gPlayerNameModal.style.display = "none";
+});
+
+
+
+/* ================= UI ================= */
+
+function updateHealthBars(p1, p2) {
+  gHealthBars.forEach(healthBar => {
+    healthBar.setAttribute("max", gPlayer.hitPointsMax);
+    healthBar.setAttribute("value", gPlayer.hitPontsNow);
+  });
+}
+
+function updatePlayerNames() {
+  gPlayerNameOutput.innerHTML = gPlayer.name;
+  gFoeNameOutput.innerHTML = gFoe.name;
+}
+
+function writeToConsole(content) {
+  var element = document.createElement("p");
+  var txt = document.createTextNode(content);
+  element.innerHTML = txt.nodeValue;
+  gConsoleOutput.appendChild(element);
+  gConsoleOutput.scrollTop = gConsoleOutput.scrollHeight;
+}
+
+function fightRollOutput(attackerName, defenderName, result) {
+  writeToConsole(attackerName + " (<span class=\"dice\">" + result.attackerDie1 + result.attackerDie2 + "</span>) hit " + defenderName + "(<span class=\"dice\">" + result.defenderDie1 + "</span>) with <span class='text-danger'>" + result.actualDamage + "</span> damage");
+
+  // + attackerName +" rolled " + result.attackerDiceSum + " (" + result.attackerDie1 + " + " + result.attackerDie2  + "). " + defenderName + " rolled " + result.defenderDie1 + ". Damage: " + result.actualDamage + " (" + result.attackerDiceSum + " - " + result.defenderDie1)
+}
+
+/* ==== Modal ==== */
+
 
 
 

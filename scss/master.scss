@@ -1,4 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Mali|MedievalSharp');
+@font-face {
+  font-family: Dice;
+  src: url(../fonts/Dice.ttf);
+}
+
 @import "var";
 @import "modal";
 
@@ -24,6 +29,10 @@ body {
 
 a {
   color: inherit;
+}
+
+.dice {
+  font-family: "Dice";
 }
 
 .btn {
@@ -53,11 +62,6 @@ a {
     box-shadow: inset 4px 4px 0 rgba(255,255,255,.5), inset -4px -4px 0 rgba(0,0,0,.5), 2px 2px 10px 0 #000;
   }
   
-}
-
-.dice {
-  max-width: 2em;
-  margin: .5em;
 }
 
 .grid-area {
@@ -144,7 +148,7 @@ progress {
 
 ::-webkit-progress-value {
   transition: all;
-  transition-duration: .5s;
+  transition-duration: 1s;
   border-radius: $default-border-radius;
   background-color: red;
   box-shadow: 2px 2px 0 rgba(255, 255, 255, 0.25) inset, -2px -2px 0 rgba(0, 0, 0, 0.5) inset;
