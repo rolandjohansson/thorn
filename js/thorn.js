@@ -16,11 +16,12 @@ const gPlayerNameModal = document.querySelector('#player-name-modal');
 const gPlayerNameInput = document.querySelector("#player-name-input");
 const gPlayerNameOutput = document.querySelector("#player-one-name");
 const gPlayerNameForm = document.querySelector("#player-name-form");
-const gPlayerNameSubmit = document.querySelector("#submit-player-name");
+// const gPlayerNameSubmit = document.querySelector("#submit-player-name");
 
 let gPlayerDefaultName = "Brave";
 
 let gPlayer = createPlayer(gPlayerDefaultName);
+gPlayer.healthbar = document.querySelector('#healthbar-one-progress');
 let gFoe = createFoe();
 
 /* ================= OBJECTS ================= */
@@ -30,11 +31,12 @@ function createPlayer(playerName, hitPointsMax) {
     name: playerName,
     visible: true,
     hitPointsMax: 100,
-    hitPontsNow: 100,
+    hitPointsNow: 100,
     pairMultiplier: 2,
     // armor: "0",
     basicDamage: 1,
-    luck: 0
+    luck: 0,
+    healthbar: null,
   };
   return player;
 }
@@ -51,6 +53,7 @@ function createFoe() {
   const player = createPlayer(foeName);
   player.hitPointsMax = getRandomInt(75, 125);
   player.hitPointsNow = player.hitPointsMax;
+  player.healthbar = document.querySelector('#healthbar-two-progress');
   return player;
 }
 
@@ -106,17 +109,25 @@ function fightRoll(attacker, defender) {
 
 function playerTurn() {
   var result = fightRoll(gPlayer, gFoe);
-  fightRollOutput(gPlayer.name, gFoe.name, result)
+  gFoe.hitPointsNow -= result.actualDamage;
+  fightRollOutput(gPlayer.name, gFoe.name, result);
 }
 
 function foeTurn() {
   var result = fightRoll(gFoe, gPlayer);
-  fightRollOutput(gFoe.name, gPlayer.name, result)
+  gFoe.hitPointsNow -= result.actualDamage;
+  fightRollOutput(gFoe.name, gPlayer.name, result);
 }
 
 function turn() {
   playerTurn();
-  foeTurn();
+  gRollButton.setAttribute("disabled", true);
+  // TODO: Disable attack button
+  window.setTimeout(function() {
+    foeTurn();
+    gRollButton.removeAttribute("disabled");
+    // TODO: Enable attack button
+  }, 2000);
 }
 
 gPlayerNameForm.addEventListener("submit", function(e) {
@@ -130,13 +141,13 @@ gPlayerNameForm.addEventListener("submit", function(e) {
 
 /* ================= UI ================= */
 
-function updateHealthBars(p1, p2) {
-  gHealthBars.forEach(healthBar => {
-    healthBar.setAttribute("max", gPlayer.hitPointsMax);
-    healthBar.setAttribute("value", gPlayer.hitPontsNow);
+function updateHealthBars() {
+  [gPlayer, gFoe].forEach(player => {
+    player.healthbar.setAttribute("max", player.hitPointsMax);
+    player.healthbar.setAttribute("value", player.hitPointsNow); 
   });
 }
-
+  
 function updatePlayerNames() {
   gPlayerNameOutput.innerHTML = gPlayer.name;
   gFoeNameOutput.innerHTML = gFoe.name;
@@ -151,8 +162,8 @@ function writeToConsole(content) {
 }
 
 function fightRollOutput(attackerName, defenderName, result) {
+  updateHealthBars();
   writeToConsole(attackerName + " (<span class=\"dice\">" + result.attackerDie1 + result.attackerDie2 + "</span>) hit " + defenderName + "(<span class=\"dice\">" + result.defenderDie1 + "</span>) with <span class='text-danger'>" + result.actualDamage + "</span> damage");
-
   // + attackerName +" rolled " + result.attackerDiceSum + " (" + result.attackerDie1 + " + " + result.attackerDie2  + "). " + defenderName + " rolled " + result.defenderDie1 + ". Damage: " + result.actualDamage + " (" + result.attackerDiceSum + " - " + result.defenderDie1)
 }
 
