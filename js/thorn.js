@@ -4,11 +4,11 @@
     http://www.rolandjohansson.se/
 */
 
-// TODO: Create setPlayerName function
 // TODO: Local store player highscore
 
+"use strict";
+
 const gConsoleOutput = document.querySelector("#console");
-const gHealthBars = document.querySelectorAll(".healthbar");
 const gFoeNameOutput = document.querySelector("#player-two-name");
 const gRollButton = document.querySelector("#roll");
 
@@ -16,12 +16,12 @@ const gPlayerNameModal = document.querySelector('#player-name-modal');
 const gPlayerNameInput = document.querySelector("#player-name-input");
 const gPlayerNameOutput = document.querySelector("#player-one-name");
 const gPlayerNameForm = document.querySelector("#player-name-form");
-// const gPlayerNameSubmit = document.querySelector("#submit-player-name");
 
 let gPlayerDefaultName = "Brave";
 
 let gPlayer = createPlayer(gPlayerDefaultName);
 gPlayer.healthbar = document.querySelector('#healthbar-one-progress');
+gPlayer.health = document.querySelector("#healthbar-one-output");
 let gFoe = createFoe();
 
 /* ================= OBJECTS ================= */
@@ -37,6 +37,7 @@ function createPlayer(playerName, hitPointsMax) {
     basicDamage: 1,
     luck: 0,
     healthbar: null,
+    health: null,
   };
   return player;
 }
@@ -54,6 +55,7 @@ function createFoe() {
   player.hitPointsMax = getRandomInt(75, 125);
   player.hitPointsNow = player.hitPointsMax;
   player.healthbar = document.querySelector('#healthbar-two-progress');
+  player.health = document.querySelector("#healthbar-two-output");
   return player;
 }
 
@@ -122,11 +124,9 @@ function foeTurn() {
 function turn() {
   playerTurn();
   gRollButton.setAttribute("disabled", true);
-  // TODO: Disable attack button
   window.setTimeout(function() {
     foeTurn();
     gRollButton.removeAttribute("disabled");
-    // TODO: Enable attack button
   }, 2000);
 }
 
@@ -145,6 +145,7 @@ function updateHealthBars() {
   [gPlayer, gFoe].forEach(player => {
     player.healthbar.setAttribute("max", player.hitPointsMax);
     player.healthbar.setAttribute("value", player.hitPointsNow); 
+    player.health.innerHTML = player.hitPointsNow + " / " + player.hitPointsMax;
   });
 }
   
