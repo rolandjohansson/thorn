@@ -157,8 +157,19 @@ a {
   background-color: #000;
   overflow: hidden;
   display: grid;
-  grid-template-areas: "logo" "game" "healthbars";
+  grid-template-areas: "wins logo stuff" "game game game" "healthbars healthbars healthbars";
   grid-template-rows: 1fr 8fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.wins-container {
+  grid-area: wins;
+  color: white;
+  padding: 1em;
+}
+
+.stuff {
+  grid-area: stuff;
 }
 
 .logo-container {

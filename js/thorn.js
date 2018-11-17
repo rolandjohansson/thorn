@@ -18,6 +18,7 @@ const gPlayerNameOutput = document.querySelector("#player-one-name");
 const gPlayerNameForm = document.querySelector("#player-name-form");
 
 let gPlayerDefaultName = "Brave";
+let gWins = 0;
 
 let gPlayer = createPlayer(gPlayerDefaultName);
 gPlayer.healthbar = document.querySelector('#healthbar-one-progress');
@@ -38,6 +39,9 @@ function createPlayer(playerName, hitPointsMax) {
     luck: 0,
     healthbar: null,
     health: null,
+    isAlive: function() {
+      return this.hitPointsNow > 0;
+    }
   };
   return player;
 }
@@ -52,7 +56,7 @@ function createFoe() {
   ];
   const foeName = foeNames[getRandomInt(0, foeNames.length - 1)];
   const player = createPlayer(foeName);
-  player.hitPointsMax = getRandomInt(75, 125);
+  player.hitPointsMax = getRandomInt(1, 10);
   player.hitPointsNow = player.hitPointsMax;
   player.healthbar = document.querySelector('#healthbar-two-progress');
   player.health = document.querySelector("#healthbar-two-output");
@@ -68,6 +72,7 @@ function getRandomInt(min, max) {
 function startGame() {
   updatePlayerNames();
   updateHealthBars();
+  updateWinsCounter();
   writeToConsole("Oh no! Our brave adventurer <span class='text-primary'>" + gPlayer.name + "</span> has encountered the infamous monster <span class='text-danger'>" + gFoe.name + "</span>. Time to roll the dice and fight!");
   gRollButton.addEventListener("click", function () {
     turn();
@@ -111,23 +116,59 @@ function fightRoll(attacker, defender) {
 
 function playerTurn() {
   var result = fightRoll(gPlayer, gFoe);
-  gFoe.hitPointsNow -= result.actualDamage;
+  // gFoe.hitPointsNow -= result.actualDamage;
   fightRollOutput(gPlayer.name, gFoe.name, result);
 }
 
 function foeTurn() {
   var result = fightRoll(gFoe, gPlayer);
-  gFoe.hitPointsNow -= result.actualDamage;
+  // gFoe.hitPointsNow -= result.actualDamage;
   fightRollOutput(gFoe.name, gPlayer.name, result);
+  if (!gFoe.isAlive()) {
+    endRound();
+  }
 }
 
 function turn() {
-  playerTurn();
-  gRollButton.setAttribute("disabled", true);
-  window.setTimeout(function() {
-    foeTurn();
-    gRollButton.removeAttribute("disabled");
-  }, 2000);
+  if (gPlayer.isAlive()) {
+    playerTurn();
+  } else {
+    endRound();
+  }
+
+  if (gFoe.isAlive()) {
+    gRollButton.setAttribute("disabled", true);
+    window.setTimeout(function() {
+      foeTurn();
+      gRollButton.removeAttribute("disabled");
+    }, 2000);
+  } else {
+    gWins++
+    endRound();
+  }
+  
+}
+
+function endRound() {
+  updateWinsCounter();
+  writeToConsole("End of round!");
+  /* 
+  PLAYER WINS:
+  1. Change roll button to "next round"
+  2. Add 1 to wins counter
+  3. Console output win message
+  4. "Next round" restarts round on click
+
+  PLAYER LOSES:
+  1. Modal with game over message, highscore and retry button
+  2. Add wins count to highscore
+  3. show local storage highscore
+  */
+
+}
+
+function updateWinsCounter() {
+  document.querySelector("#wins").innerHTML = gWins;
 }
 
 gPlayerNameForm.addEventListener("submit", function(e) {

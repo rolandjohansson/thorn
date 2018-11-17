@@ -25,19 +25,23 @@
       <div class="modal-content">
         <form id="player-name-form">
           <label for="player-name-input">Enter Name</label>
-          <input type="text" id="player-name-input" maxlength="16" required autofocus>
+          <input type="text" id="player-name-input" minlength="2" maxlength="16" required autofocus autocomplete="off">
           <input type="submit" value="Start" id="submit-player-name" class="btn" style="width: 100%;">
         </form>
       </div>
     </div>
   <div class="grid-container">
     <div class="grid-area box-shadow" id="graphics">
+      <div class="wins-container">
+        Wins: <span id="wins"></span>
+      </div>
       <div class="logo-container">
         <img src="assets/ui/thorn.png" id="thorn-logo" alt="The Thorn Logotype">
       </div>
-      <div class="game">
-
+      <div class="stuff">
+        <p>Stuff</p>
       </div>
+      <div class="game"></div>
       <div id="healthbar-container">
         <div id="healthbar-one">
           <label id="healthbar-one-output" for="healthbar-one-progress"></label>
